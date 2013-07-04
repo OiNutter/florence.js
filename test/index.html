@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>florence.js test</title>
+		<style type="text/css">
+			#florence-container{
+				width:800px;
+				height:110px;
+				overflow:hidden;
+				background:#ccc;
+			}
+
+			.florence-item{
+				width:100px;
+				height:100px;
+				background:#900;
+				margin:5px;
+			}
+
+			.florence-item.green{ background:#090; }
+			.florence-item.blue{ background:#009; color:#fff;}
+
+		</style>
+	</head>
+	<body>
+		<div id="florence-container">
+			<div class="florence-slider">
+				<div class='florence-item red' id="item-1"><div>1</div></div>
+				<div class='florence-item red' id="item-2">2</div>
+				<div class='florence-item blue' id="item-3">3</div>
+				<div class='florence-item green' id="item-4">4</div>
+				<div class='florence-item blue' id="item-5">5</div>
+				<div class='florence-item blue' id="item-6">6</div>
+				<div class='florence-item red' id="item-7">7</div>
+				<div class='florence-item green' id="item-8">8</div>
+				<div class='florence-item red' id="item-9">9</div>
+				<div class='florence-item green' id="item-10">10</div>
+				<div class='florence-item green' id="item-11">11</div>
+				<div class='florence-item blue' id="item-12">12</div>
+				<div class='florence-item red' id="item-13">13</div>
+				<div class='florence-item blue' id="item-14">14</div>
+				<div class='florence-item green' id="item-15">15</div>
+				<div class='florence-item red' id="item-16">16</div>
+				<div class='florence-item green' id="item-17">17</div>
+			</div>
+		</div>
+
+		<a onclick='gallery.reset()'>Reset</a> |
+		<a onclick='reorder()'>Re-order elements</a> |
+		<a onclick='filterEls("blue")'>Blue</a>
+		<a onclick='filterEls("red")'>Red</a>
+		<a onclick='filterEls("green")'>Green</a> |
+		<a onclick='gallery.prev()'>Prev</a>
+		<a onclick="gallery.jumpTo('#item-1')">1</a>
+		<a onclick="gallery.jumpTo('#item-12')">12</a>
+		<a onclick="gallery.jumpTo('#item-17')">17</a>
+		<a onclick='gallery.next()'>Next</a>
+		<script type="text/javascript" src="../src/florence.js"></script>
+		<script type="text/javascript">
+			var gallery = florence('#florence-container')
+
+			function reorder(){
+				var order = [
+								'#item-4',
+								'#item-11',
+								'#item-9',
+								'#item-15',
+								'#item-3',
+								'#item-1',
+								'#item-13',
+								'#item-6',
+								'#item-5',
+								'#item-17',
+								'#item-7',
+								'#item-16',
+								'#item-2',
+								'#item-10',
+								'#item-14',
+								'#item-8',
+								'#item-12']
+
+				gallery.order(order)
+			}
+
+			function filterEls(colour){
+				gallery.filter(colour)
+			}
+		</script>
+	</body>
+</html>
