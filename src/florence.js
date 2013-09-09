@@ -315,7 +315,7 @@ var florence = function(element,opts){
 
     jumpTo = function(item,animate){
 
-    		if(animating)
+    		if(animating || filteredElements.length <= options.numVisible )
     			return false
 
     		if(animate==null)
@@ -695,6 +695,9 @@ var florence = function(element,opts){
 	slider = container.querySelector(options.slider)
 	slider.style.left = containerDimensions.padding.left + "px"
 	slider.style.position = 'relative'
+
+	console.log('SLIDER LEFT',containerDimensions.padding.left)
+	console.log('SET SLIDER LEFT',slider.style.left)
 
 	_addEvent(container,'mousedown',function(e){
 		dragStart = e.clientX - e.currentTarget.style.left
