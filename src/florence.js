@@ -2,7 +2,7 @@
  * Florence.js 0.1
  * (c) 2013 Will McKenzie
  * Provided under the MIT License
- * See http://github.com/OiNutter/guggenheim.js for more details
+ * See http://github.com/OiNutter/oinutter.js for more details
  */
 
 var florence = function(element,opts){
@@ -26,6 +26,7 @@ var florence = function(element,opts){
 		options,
 		slider,
 		elements,
+		dimensions,
 		filteredElements = [],
 		orderedElements = [],
 		supportsOpacity = typeof testEl.style.opacity == 'string', 
@@ -695,9 +696,6 @@ var florence = function(element,opts){
 	slider = container.querySelector(options.slider)
 	slider.style.left = containerDimensions.padding.left + "px"
 	slider.style.position = 'relative'
-
-	console.log('SLIDER LEFT',containerDimensions.padding.left)
-	console.log('SET SLIDER LEFT',slider.style.left)
 
 	_addEvent(container,'mousedown',function(e){
 		dragStart = e.clientX - e.currentTarget.style.left
