@@ -8,8 +8,8 @@
   <script src="../vendor/zepto.min.js"></script>
   <script src="../vendor/evidence.min.js"></script>
   <script src="evidence_runner.js"></script>
-  <script src="../src/guggenheim.js"></script>
-  <!--<script src="../dist/guggenheim.min.js"></script>-->
+  <script src="../src/florence.js"></script>
+  <!--<script src="../dist/florence.min.js"></script>-->
   <style>
     #get_style_element {
       font-size: 48px;
@@ -24,25 +24,25 @@
   </p>
   <div id="fixtures">
 
-    <div id="guggenheim-container">
-      <div class="guggenheim-slider">
-        <div class='guggenheim-item red multi' id="item-1"><div>1</div></div>
-        <div class='guggenheim-item red' id="item-2">2</div>
-        <div class='guggenheim-item blue multi' id="item-3">3</div>
-        <div class='guggenheim-item green' id="item-4">4</div>
-        <div class='guggenheim-item blue' id="item-5">5</div>
-        <div class='guggenheim-item blue multi' id="item-6">6</div>
-        <div class='guggenheim-item red multi' id="item-7">7</div>
-        <div class='guggenheim-item green' id="item-8">8</div>
-        <div class='guggenheim-item red' id="item-9">9</div>
-        <div class='guggenheim-item green' id="item-10">10</div>
-        <div class='guggenheim-item green' id="item-11">11</div>
-        <div class='guggenheim-item blue' id="item-12">12</div>
-        <div class='guggenheim-item red multi' id="item-13">13</div>
-        <div class='guggenheim-item blue' id="item-14">14</div>
-        <div class='guggenheim-item green' id="item-15">15</div>
-        <div class='guggenheim-item red' id="item-16">16</div>
-        <div class='guggenheim-item green' id="item-17">17</div>
+    <div id="florence-container">
+      <div class="florence-slider">
+        <div class='florence-item red multi' id="item-1"><div>1</div></div>
+        <div class='florence-item red' id="item-2">2</div>
+        <div class='florence-item blue multi' id="item-3">3</div>
+        <div class='florence-item green' id="item-4">4</div>
+        <div class='florence-item blue' id="item-5">5</div>
+        <div class='florence-item blue multi' id="item-6">6</div>
+        <div class='florence-item red multi' id="item-7">7</div>
+        <div class='florence-item green' id="item-8">8</div>
+        <div class='florence-item red' id="item-9">9</div>
+        <div class='florence-item green' id="item-10">10</div>
+        <div class='florence-item green' id="item-11">11</div>
+        <div class='florence-item blue' id="item-12">12</div>
+        <div class='florence-item red multi' id="item-13">13</div>
+        <div class='florence-item blue' id="item-14">14</div>
+        <div class='florence-item green' id="item-15">15</div>
+        <div class='florence-item red' id="item-16">16</div>
+        <div class='florence-item green' id="item-17">17</div>
       </div>
     </div>
 
@@ -56,7 +56,7 @@
 
   $(document).ready(function(){
 
-    gallery = guggenheim('#guggenheim-container')
+    gallery = florence('#florence-container')
 
     Evidence.Assertions.assertSucceeds = function(func,message){
       var excepted = false,
@@ -113,7 +113,7 @@
     }
 
     function getVisibleElements(){
-      var elements = document.querySelectorAll('.guggenheim-item'),
+      var elements = document.querySelectorAll('.florence-item'),
           i,
           visible = []
 
@@ -127,16 +127,16 @@
 
       testInitialises: function(t){
         // Check initialises correctly from string
-        t.assertSucceeds(function(){guggenheim('#guggenheim-container')},'Failed to initialise when passed a string')
-        t.assertSucceeds(function(){guggenheim(document.querySelector('#guggenheim-container'))},'Failed to initialise when passed a DOM element') 
+        t.assertSucceeds(function(){florence('#florence-container')},'Failed to initialise when passed a string')
+        t.assertSucceeds(function(){florence(document.querySelector('#florence-container'))},'Failed to initialise when passed a DOM element') 
       },
 
       testExceptsWhenGivenBadElement: function(t){
-        t.assertExcepts(function(){guggenheim('#missing')},'Element #missing does not exist!','Failed to except when passed non existant ID')
+        t.assertExcepts(function(){florence('#missing')},'Element #missing does not exist!','Failed to except when passed non existant ID')
       },
 
       testExceptsWhenGivenEmptyContainer: function(t){
-        t.assertExcepts(function(){guggenheim('#empty-container')},'Gallery is empty','Failed to except when passed an empty gallery')
+        t.assertExcepts(function(){florence('#empty-container')},'Gallery is empty','Failed to except when passed an empty gallery')
       },
 
       testFiltering: function(t){
@@ -190,20 +190,6 @@
         t.assertArraysEqual(order,ids,'Elements not in correct order')
 
         gallery.reset()
-      },
-
-      testCurrentPage: function(t){
-             
-        t.assertEqual(gallery.currentPage(),1,'Not returning correct current page')
-        gallery.jumpTo(2)
-        t.assertEqual(gallery.currentPage(),2,'Not returning correct current page after jump')
-
-        gallery.reset()
-
-      },
-
-      testNumPages: function(t){
-        t.assertEqual(gallery.numPages(),2,'Not returning the correct number of pages')
       }
 
     })

@@ -35,14 +35,14 @@ a:link, a:visited { color: darkblue; }
   #nav { font-size: 14px; max-width: auto; }
 }
 
-#guggenheim-container{
+#florence-container{
   width:800px;
   height:300px;
   overflow:hidden;
   position:relative;
 }
 
-.guggenheim-item{
+.florence-item{
   width:100px;
   height:100px;
   background:#900;
