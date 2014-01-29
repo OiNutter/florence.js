@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="test.css">
-  <title>Guggenheim unit tests</title>
+  <title>Florence unit tests</title>
   <script src="../vendor/zepto.min.js"></script>
   <script src="../vendor/evidence.min.js"></script>
   <script src="evidence_runner.js"></script>
@@ -18,7 +18,7 @@
   </style>
 </head>
 <body>
-  <h1>Guggenheim unit tests</h1>
+  <h1>Florence unit tests</h1>
   <p id="results">
     Running… see browser console for results
   </p>
@@ -123,7 +123,7 @@
       return visible
     }
 
-    Evidence('GuggenheimTest', {
+    Evidence('FlorenceTest', {
 
       testInitialises: function(t){
         // Check initialises correctly from string
@@ -158,6 +158,14 @@
         t.assertEqual(3,els.length,'Filtered to incorrect number of red and multi elements')      
 
         gallery.reset()
+      },
+
+      testgetCurrent: function(t){
+
+        //filter to red items
+        var filtered = gallery.filter('red')
+        t.assertEqual(filtered,gallery.getCurrent(),'getCurrent not returning correct items')
+
       },
 
       testOrdering: function(t){

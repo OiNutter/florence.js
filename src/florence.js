@@ -569,7 +569,11 @@ var florence = function(element,opts){
 		},
 
 	getVisible = function(){
-		return filteredElements.slice((currentPage()-1)*options.numVisible,options.numVisible)
+			return filteredElements.slice((currentPage()-1)*options.numVisible,options.numVisible)
+		},
+
+	getCurrent = function(){
+		return filteredElements
 	}
 
 	
@@ -736,7 +740,8 @@ var florence = function(element,opts){
 		"remove":remove,
 		"add":add,
 		"isVisible":isVisible,
-		"getVisible":getVisible
+		"getVisible":getVisible,
+		"getCurrent":getCurrent
 	}
 
 }
