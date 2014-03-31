@@ -2,7 +2,7 @@
  * Florence.js 0.1
  * (c) 2013 Will McKenzie
  * Provided under the MIT License
- * See http://github.com/OiNutter/oinutter.js for more details
+ * See http://github.com/OiNutter/florence.js for more details
  */
 
 var florence = function(element,opts){
@@ -26,7 +26,6 @@ var florence = function(element,opts){
 		options,
 		slider,
 		elements,
-		dimensions,
 		filteredElements = [],
 		orderedElements = [],
 		supportsOpacity = typeof testEl.style.opacity == 'string', 
@@ -39,7 +38,8 @@ var florence = function(element,opts){
     	curFilter = function(){return true},
     	paginationCallback = function(){ animating = false },
     	dragStart,
-    	sliderDragStart
+    	sliderDragStart,
+    	children = []
 
     function _downcase(str) { return str.toLowerCase() }
   	function _normalizeEvent(name) { return eventPrefix ? eventPrefix + name : _downcase(name) }
@@ -266,7 +266,7 @@ var florence = function(element,opts){
     		moveByOffset((outBy > moveBy/2) ? (moveBy-outBy+containerDimensions.padding.left) : -(outBy+containerDimensions.margin.left),true)
 
     	dragStart = null
-
+    	
     }
 
     function moveByOffset(offset,animate){
@@ -508,6 +508,8 @@ var florence = function(element,opts){
 			var initialOrder = [],
 				i
 
+			slider.style.left = containerDimensions.padding.left + "px"
+
 			filteredElements = orderedElements = []
 
 			for(i = 0;i<elements.length;i++)
@@ -518,7 +520,15 @@ var florence = function(element,opts){
 			order(orderedElements,animate)
 
 			maxDrag = (filteredElements.length * (elDimensions.width + elDimensions.padding.left + elDimensions.padding.right + elDimensions.margin.left + elDimensions.margin.right)) - containerDimensions.width
+
+
 		},
+
+	reload = function(){
+		elements = container.querySelectorAll(options.selector)
+		setUpElements()
+		reset()
+	},
 
 	add = function(el,position){
 
@@ -705,8 +715,10 @@ var florence = function(element,opts){
 		dragStart = e.clientX - e.currentTarget.style.left
 		sliderDragStart = parseInt(slider.style.left)
 	})
-		
-	_addEvent(document,'mouseup mouseleave',tidyDrag)
+	
+	_addEvent(document,'mouseleave',tidyDrag)
+	_addEvent(container,'mouseleave',tidyDrag)
+	_addEvent(document,'mouseup',tidyDrag)
 	_addEvent(container,'mousemove',drag)
 	  		
 	;(function(){
@@ -729,6 +741,7 @@ var florence = function(element,opts){
 
 	return {
 		"reset":reset,
+		"reload":reload,
 		"order":order,
 		"filter":filter,
 		"prev":prev,
