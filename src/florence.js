@@ -8,10 +8,10 @@
 var florence = function(element,opts){
 
 	var currentItem,
-		endEventName, 
+		endEventName,
 		endAnimationName,
     	vendors = { Webkit: 'webkit', Moz: '', O: 'o', ms: 'MS' },
-    	document = window.document, 
+    	document = window.document,
     	testEl = document.createElement('div'),
     	supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i,
     	clearProperties = {},
@@ -28,10 +28,10 @@ var florence = function(element,opts){
 		elements,
 		filteredElements = [],
 		orderedElements = [],
-		supportsOpacity = typeof testEl.style.opacity == 'string', 
+		supportsOpacity = typeof testEl.style.opacity == 'string',
     	supportsFilters = typeof testEl.style.filter == 'string',
-    	reOpacity = /alpha\(opacity=([^\)]+)\)/, 
-    	setOpacity = function(){ }, 
+    	reOpacity = /alpha\(opacity=([^\)]+)\)/,
+    	setOpacity = function(){ },
     	getOpacityFromComputed = function(){ return '1' },
     	handlers = {},
     	zid=1,
@@ -85,7 +85,7 @@ var florence = function(element,opts){
 
 	function _getElementDimensions(el){
 		var style = (window.getComputedStyle) ? window.getComputedStyle(el,null) : el.currentStyle
-		
+
 		return {
 			"height": parseFloat(style.height) + (parseFloat(style.paddingTop) || 0) + (parseFloat(style.paddingBottom) || 0) + (parseFloat(style.borderTopWidth) || 0) + (parseFloat(style.borderBottomWidth) || 0),
 			"width": parseFloat(style.width) + (parseFloat(style.paddingLeft) || 0) + (parseFloat(style.paddingRight) || 0) + (parseFloat(style.borderLeftWidth) || 0) + (parseFloat(style.borderRightWidth) || 0),
@@ -109,7 +109,7 @@ var florence = function(element,opts){
   	}
 
 	function _addEvent(el,event,callback){
-		
+
 		var id = _zid(el),
 			events = event.split(' '),
 			i,
@@ -119,7 +119,7 @@ var florence = function(element,opts){
 			handlers[id] = {}
 
 		for(i=0;i<events.length;i++){
-			
+
 			e = events[i]
 
 			if(!handlers[id][e])
@@ -178,7 +178,7 @@ var florence = function(element,opts){
     }
 
     function _s(str, p, c){ return str.substr(p,c||1); }
-  	
+
   	function _color(source,target,pos){
 	    var i = 2, j, c, tmp, v = [], r = [];
 	    while(j=3,c=arguments[i-1],i--)
@@ -196,7 +196,7 @@ var florence = function(element,opts){
 
 	//animates elements
 	function _animate(el,props,callback){
-		var transitions = [], 
+		var transitions = [],
 			key,
 			start = (new Date).getTime(),
         	duration = options.duration*1000,
@@ -213,11 +213,11 @@ var florence = function(element,opts){
         if(prefix != ""){
        		for(key in props)
      			transitions.push(key)
-    
+
      		el.style.setProperty(prefix + 'transition-property',transitions.join(', '),'')
      		el.style.setProperty(prefix + 'transition-duration',options.duration + 's','')
      		el.style.setProperty(prefix + 'transition-timing-function',options.easing,'')
-   			
+
    			_removeEvent(el,_normalizeEvent('TransitionEnd'))
 
    			if(options.duration>0)
@@ -225,9 +225,9 @@ var florence = function(element,opts){
 
      		for (key in props)
        			el.style[key] = props[key]
-             
+
         } else {
-        	
+
         	for (prop in props) target[prop] = _parseProps(props[prop])
         	for (prop in props) current[prop] = _parseProps(prop === 'opacity' ? getOpacityFromComputed(comp) : comp[prop])
 
@@ -236,12 +236,12 @@ var florence = function(element,opts){
       	    	pos = time > finish ? 1 : (time-start)/duration
 	        	for(prop in target){
 	        		curValue = target[prop].f(current[prop].v,target[prop].v,easing[options.easing](pos)) + target[prop].u
-	        		if (prop === 'opacity') 
+	        		if (prop === 'opacity')
 	        			setOpacity(el, curValue)
 	        		else
 	        			el.style[prop] = curValue
 	        	}
-       
+
        			if(time>finish){
         			clearInterval(interval)
       				if(callback !== undefined)
@@ -266,7 +266,7 @@ var florence = function(element,opts){
     		moveByOffset((outBy > moveBy/2) ? (moveBy-outBy+containerDimensions.padding.left) : -(outBy+containerDimensions.margin.left),true)
 
     	dragStart = null
-    	
+
     }
 
     function moveByOffset(offset,animate){
@@ -284,7 +284,7 @@ var florence = function(element,opts){
 
     	if(animate)
     		_animate(slider,{"left":(sliderDragStart - offset) + "px"})
-    	else    	
+    	else
     		slider.style.left = (sliderDragStart - offset) + "px"
     }
 
@@ -296,7 +296,7 @@ var florence = function(element,opts){
     			moveBy = elDimensions.width + elDimensions.padding.left + elDimensions.padding.right + elDimensions.margin.left + elDimensions.margin.right
 
     		_animate(slider,{"left":(parseInt(slider.style.left) + moveBy) + "px"})
-    		
+
     		currentItem--
 
     	},
@@ -311,7 +311,7 @@ var florence = function(element,opts){
     			_animate(slider,{"left":(parseInt(slider.style.left) - moveBy) + "px"})
 
     		currentItem++
-       	    		
+
     	},
 
     jumpTo = function(item,animate){
@@ -350,8 +350,8 @@ var florence = function(element,opts){
     			_animate(slider,{"left":left})
     		else
     			slider.style.left = left
-    		
-    		
+
+
 
     },
 
@@ -363,7 +363,7 @@ var florence = function(element,opts){
     	var offset = dragStart - e.clientX
 
     	moveByOffset(offset)
-    	
+
     },
 
     currentItem = function(){
@@ -389,7 +389,7 @@ var florence = function(element,opts){
 
 			if(!elements.length)
 				return false
-			
+
 			var col = 0,
 				top,
 				left,
@@ -403,7 +403,7 @@ var florence = function(element,opts){
 				if(typeof filterFunction == 'string')
 					filterFunction = [filterFunction]
 				classString = '(?=.*\\b(' + filterFunction.join(')\\b)(?=.*\\b(') + ')\\b)'
-				
+
 				filterFunction = function(el){ return (new RegExp(classString)).test(el.className)}
 			}
 
@@ -568,10 +568,10 @@ var florence = function(element,opts){
 			filteredElements.splice(filteredIndex,1)
 			slider.removeChild(el)
 			elements = container.querySelectorAll(options.selector)
-	
+
 			if(filteredElements.length)
 				order(orderedElements)
-	
+
 			if(jumpBack)
 				jumpTo(currentPage()-1)
 
@@ -586,7 +586,7 @@ var florence = function(element,opts){
 		return filteredElements
 	}
 
-	
+
 	function setUpElements(){
 		var i,
 			width = 0,
@@ -598,8 +598,9 @@ var florence = function(element,opts){
 			horizontalMargin = 0,
 			verticalMargin = 0,
 			thisHorizontalMargin = 0,
-			thisVerticalMargin = 0
-		
+			thisVerticalMargin = 0,
+      dimensions
+
 		for(i=0;i<elements.length;i++){
 
 			dimensions = _getElementDimensions(elements[i])
@@ -607,30 +608,30 @@ var florence = function(element,opts){
 			thisExtraHeight = dimensions.padding.top + dimensions.padding.bottom
 			thisHorizontalMargin = dimensions.margin.left + dimensions.margin.right
 			thisVerticalMargin = dimensions.margin.top + dimensions.margin.bottom
-			
-			if(thisExtraWidth>extraWidth) 
+
+			if(thisExtraWidth>extraWidth)
 				extraWidth = thisExtraWidth
-			
-			if(thisExtraHeight>extraHeight) 
+
+			if(thisExtraHeight>extraHeight)
 				extraHeight = thisExtraHeight
 
-			if(thisHorizontalMargin>horizontalMargin) 
+			if(thisHorizontalMargin>horizontalMargin)
 				horizontalMargin = thisHorizontalMargin
-			
-			if(thisVerticalMargin>verticalMargin) 
+
+			if(thisVerticalMargin>verticalMargin)
 				verticalMargin = thisVerticalMargin
 
-			if(dimensions.width>width) 
+			if(dimensions.width>width)
 				width = dimensions.width - extraWidth
-			
-			if(dimensions.height>height) 
+
+			if(dimensions.height>height)
 				height = dimensions.height - extraHeight
 		}
 
-		if (options.numVisible != "auto" && (width+horizontalMargin)>containerDimensions.width/options.numVisible) 
+		if (options.numVisible != "auto" && (width+horizontalMargin)>containerDimensions.width/options.numVisible)
 			width = Math.floor(containerDimensions.width/options.numVisible) - extraWidth - horizontalMargin
-		
-		if ((height+verticalMargin)>containerDimensions.height) 
+
+		if ((height+verticalMargin)>containerDimensions.height)
 			height = containerDimensions.height - extraHeight - verticalMargin
 
 		for(i=0;i<elements.length;i++){
@@ -649,13 +650,13 @@ var florence = function(element,opts){
 		elDimensions = _getElementDimensions(elements[0])
 
 	}
-	
-	
+
+
 	if(typeof element == 'string' && document.querySelector(element)==null)
 		throw 'Element ' + element + " does not exist!"
 
 	container = (typeof element == 'string') ? document.querySelector(element): element
-	
+
 	options = _mergeOptions({
 		'selector':'div.florence-item',
 		'numVisible':'auto',
@@ -669,7 +670,7 @@ var florence = function(element,opts){
 
 	//set up container
 	container.style.overflow = 'hidden'
-	if(container.style.position == '') 
+	if(container.style.position == '')
 		container.style.position = 'relative'
 
 	if(options.width != null)
@@ -684,9 +685,9 @@ var florence = function(element,opts){
 	if(!elements.length)
 		throw 'Gallery is empty'
 
-	var containerDimensions = _getElementDimensions(container), 
-		elDimensions, 
-		width, 
+	var containerDimensions = _getElementDimensions(container),
+		elDimensions,
+		width,
 		height,
 		i,
 		slider,
@@ -701,7 +702,7 @@ var florence = function(element,opts){
 		width = elDimensions.width + elDimensions.margin.left + elDimensions.margin.right
 		options.numVisible = Math.floor(containerDimensions.width/width)
 	}
-	
+
 	setUpElements()
 
 	currentItem = options.start-1
@@ -715,12 +716,12 @@ var florence = function(element,opts){
 		dragStart = e.clientX - e.currentTarget.style.left
 		sliderDragStart = parseInt(slider.style.left)
 	})
-	
+
 	_addEvent(document,'mouseleave',tidyDrag)
 	_addEvent(container,'mouseleave',tidyDrag)
 	_addEvent(document,'mouseup',tidyDrag)
 	_addEvent(container,'mousemove',drag)
-	  		
+
 	;(function(){
 		for(var i=0;i<keys.length;i++){
  			if (testEl.style[keys[i] + 'TransitionProperty'] !== undefined) {
@@ -759,17 +760,17 @@ var florence = function(element,opts){
 
 }
 
-if(!Array.isArray) {  
-  Array.isArray = function (arg) {  
-    return Object.prototype.toString.call(arg) == '[object Array]';  
-  };  
+if(!Array.isArray) {
+  Array.isArray = function (arg) {
+    return Object.prototype.toString.call(arg) == '[object Array]';
+  };
 }
 
-if (!Array.prototype.indexOf) {  
-    Array.prototype.indexOf = function (el /*, from */ ) {  
-		"use strict";  
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (el /*, from */ ) {
+		"use strict";
         if (this == null)
-            throw new TypeError();  
+            throw new TypeError();
 
         var t = Object(this),
             len = t.length >>> 0,
@@ -777,25 +778,25 @@ if (!Array.prototype.indexOf) {
             k;
 
         if (len === 0)
-            return -1;  
-           
-        n = 0;  
-        if (arguments.length > 0) {  
-            n = Number(arguments[1]);  
-            if (n != n) // shortcut for verifying if it's NaN  
-                n = 0;  
+            return -1;
+
+        n = 0;
+        if (arguments.length > 0) {
+            n = Number(arguments[1]);
+            if (n != n) // shortcut for verifying if it's NaN
+                n = 0;
             else if (n != 0 && n != Infinity && n != -Infinity)
-                n = (n > 0 || -1) * Math.floor(Math.abs(n));  
-        }  
+                n = (n > 0 || -1) * Math.floor(Math.abs(n));
+        }
 
         if (n >= len)
-            return -1;  
-           
-        k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);  
-        for (; k < len; k++) {  
+            return -1;
+
+        k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+        for (; k < len; k++) {
             if (k in t && t[k] === el)
-                return k;  
+                return k;
         }
-        return -1;  
-    }  
-} 
+        return -1;
+    }
+}
