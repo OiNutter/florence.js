@@ -425,6 +425,8 @@ var florence = function(element,opts){
 						"opacity":"1"
 					}
 
+					el.style.display = 'block'
+
 					col++
 
 				} else {
@@ -433,7 +435,10 @@ var florence = function(element,opts){
 					}
 				}
 
-				_animate(orderedElements[i],props)
+				_animate(orderedElements[i],props,function(e){
+					if(getOpacityFromComputed(e.style) == 0)
+						e.target.style.display = 'none'
+				})
 
 			}
 
@@ -599,7 +604,7 @@ var florence = function(element,opts){
 			verticalMargin = 0,
 			thisHorizontalMargin = 0,
 			thisVerticalMargin = 0,
-      dimensions
+			dimensions
 
 		for(i=0;i<elements.length;i++){
 
