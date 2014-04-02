@@ -436,7 +436,7 @@ var florence = function(element,opts){
 				}
 
 				_animate(orderedElements[i],props,function(e){
-					if(getOpacityFromComputed(e.style) == 0)
+					if(getOpacityFromComputed(e.target.style) == 0)
 						e.target.style.display = 'none'
 				})
 
