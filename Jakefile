@@ -14,10 +14,12 @@ namespace('florence', function(){
 		if(!fs.existsSync('dist'))
 			fs.mkdir('dist')
 
-		var ast = uglifyjs.minify('src/florence.js'), // parse code and get the initial AST
+		var ast = uglifyjs.minify('src/florence.js',{outSourceMap:'florence.min.map'}), // parse code and get the initial AST
 			output = fs.openSync('dist/florence.min.js','w+')
+			sourceMap = fs.openSync('dist/florence.min.map','w+')
 
 		fs.writeSync(output,ast.code)
+		fs.writeSync(output,ast.map)
 	})
 
 	desc('Runs PhantomJS tests')
