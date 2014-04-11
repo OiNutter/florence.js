@@ -529,10 +529,10 @@ var florence = function(element,opts){
 
 		},
 
-	reload = function(){
+	reload = function(animate){
 		elements = container.querySelectorAll(options.selector)
 		setUpElements()
-		reset()
+		reset(animate)
 	},
 
 	add = function(el,position){
