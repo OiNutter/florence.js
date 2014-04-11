@@ -18,8 +18,8 @@ namespace('florence', function(){
 			output = fs.openSync('dist/florence.min.js','w+')
 			sourceMap = fs.openSync('dist/florence.min.map','w+')
 
-		fs.writeSync(output,ast.code)
-		fs.writeSync(output,ast.map)
+		fs.writeSync(output,ast.code + "\n //#sourceMappingURL=florence.min.map")
+		fs.writeSync(sourceMap,ast.map)
 	})
 
 	desc('Runs PhantomJS tests')
